@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Bikzo | Our Story</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .hero-about {
+            background: linear-gradient(rgba(0,0,0,0.6), url('images/img/bikezo2.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #0d6efd;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.3rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #0d6efd;
+        }
+        
+        .value-card {
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .team-img {
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="station.html">Stations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-about text-white d-flex align-items-center">
+        <div class="container text-center py-5">
+            <h1 class="display-4 fw-bold mb-3">Our Story</h1>
+            <p class="lead mb-4">Pedaling towards a greener Bristol since 2024</p>
+            <a href="#our-story" class="btn btn-light btn-lg me-2">Learn More</a>
+            <a href="#team" class="btn btn-outline-light btn-lg">Meet the Team</a>
+        </div>
+    </header>
+
+    <!-- Our Story Section -->
+    <section class="py-5" id="our-story">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="images/img/bikezo4.png" class="img-fluid rounded-3 shadow" alt="Bikzo Bikes">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Who We Are</h2>
+                    <p class="lead">Bristol's premier bike-sharing service committed to sustainable urban mobility.</p>
+                    <p>Founded in 2024 by UWE Bristol students, Bikzo began as a class project to solve urban mobility challenges. Today we operate 1,200+ bikes across 50+ stations serving thousands of riders daily.</p>
+                    <p>Our mission is to make sustainable transportation accessible while reducing traffic congestion and carbon emissions in Bristol.</p>
+                    <a href="#values" class="btn btn-primary mt-3">Our Values</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Our Journey</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>2024 - Humble Beginnings</h4>
+                            <p>Launched with 50 bikes at UWE Frenchay Campus as a student project</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>2025 - City Expansion</h4>
+                            <p>Expanded to 20 stations across central Bristol with 300 bikes</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>2026 - Electric Fleet</h4>
+                            <p>Introduced electric-assist bikes to help with Bristol's hills</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Present Day</h4>
+                            <p>1,200+ bikes across 50+ stations serving thousands daily</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-5" id="values">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Our Values</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="value-card card border-0 shadow-sm p-4 text-center h-100">
+                        <div class="text-primary mb-3">
+                            <i class="bi bi-tree" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3>Sustainability</h3>
+                        <p>We're committed to reducing environmental impact through clean transportation solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="value-card card border-0 shadow-sm p-4 text-center h-100">
+                        <div class="text-primary mb-3">
+                            <i class="bi bi-people-fill" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Building transportation that serves all members of our community equally.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="value-card card border-0 shadow-sm p-4 text-center h-100">
+                        <div class="text-primary mb-3">
+                            <i class="bi bi-lightning-charge" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>Continuously improving technology to enhance your riding experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-5 bg-light" id="team">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Meet Our Team</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="images/img/bikezo3.png" class="card-img-top team-img" alt="Sarah Johnson">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Sarah Johnson</h3>
+                            <p class="text-muted">CEO & Co-Founder</p>
+                            <p>Transportation engineer passionate about sustainable urban design.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="images/img/bikezo7.png" class="card-img-top team-img" alt="Michael Chen">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Michael Chen</h3>
+                            <p class="text-muted">CTO & Co-Founder</p>
+                            <p>Software developer specializing in IoT and mobility solutions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="images/img/bikezo11.png" class="card-img-top team-img" alt="Priya Patel">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Priya Patel</h3>
+                            <p class="text-muted">Operations Director</p>
+                            <p>Logistics expert ensuring bikes are always where you need them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 text-white bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="display-4 fw-bold">1,200+</div>
+                    <p class="lead">Bikes in Service</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="display-4 fw-bold">50+</div>
+                    <p class="lead">Stations</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="display-4 fw-bold">15,000+</div>
+                    <p class="lead">Monthly Rides</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="display-4 fw-bold">75+</div>
+                    <p class="lead">Tons CO₂ Saved</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">Join the Bikzo Movement</h2>
+            <p class="lead mb-4">Be part of Bristol's sustainable transportation revolution</p>
+            <a href="pricing.html" class="btn btn-primary btn-lg me-2">Get Started</a>
+            <a href="contact.html" class="btn btn-outline-primary btn-lg">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150" class="mb-3">
+                    <p>Bristol's premier bike-sharing service committed to sustainable urban mobility.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white">Home</a></li>
+                        <li class="mb-2"><a href="station.html" class="text-white">Stations</a></li>
+                        <li class="mb-2"><a href="pricing.html" class="text-white">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Frenchay Campus, Bristol</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +44 (0)117 32 81000</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@bikzo.co.uk</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 Bikzo. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">UFCFHL-30-1 Graphic & Web Design Studio Project</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikzo - Bike Sharing Made Easy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .bike-gallery {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 300px;
+        }
+        .bike-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .bike-gallery:hover img {
+            transform: scale(1.05);
+        }
+        .bike-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .bike-gallery:hover .bike-caption {
+            transform: translateY(0);
+        }
+        .hero-bike {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/img/bikezo8.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="station.html">Stations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Bike Image -->
+    <header class="hero-bike text-white py-5">
+        <div class="container text-center py-5">
+            <h1 class="display-4 fw-bold">Explore Bristol with Bikzo</h1>
+            <p class="lead">Sustainable mobility with our premium bike-sharing fleet</p>
+            <a href="station.html" class="btn btn-primary btn-lg me-2">Find a Bike</a>
+            <a href="pricing.html" class="btn btn-outline-light btn-lg">View Plans</a>
+        </div>
+    </header>
+
+    <!-- Bike Showcase Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Premium Bike Collection</h2>
+            <div class="row g-4">
+                <!-- Bike 1 -->
+                <div class="col-md-4">
+                    <div class="bike-gallery">
+                        <img src="images/img/bikezo3.png" alt="Bikzo Classic Bike">
+                        <div class="bike-caption">
+                            <h3>Classic Comfort</h3>
+                            <p>Perfect for leisurely rides around the city</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bike 2 -->
+                <div class="col-md-4">
+                    <div class="bike-gallery">
+                        <img src="images/img/bikezo1.png" alt="Bikzo Electric Bike">
+                        <div class="bike-caption">
+                            <h3>Electric Power</h3>
+                            <p>Effortless commuting with pedal assist</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bike 3 -->
+                <div class="col-md-4">
+                    <div class="bike-gallery">
+                        <img src="images/img/bikezo9.png" alt="Bikzo Folding Bike">
+                        <div class="bike-caption">
+                            <h3>Compact Design</h3>
+                            <p>Space-saving solution for urban living</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Ride With Bikzo?</h2>
+            <div class="row g-4">
+                <div class="col-md-4 text-center">
+                    <div class="p-4 h-100">
+                        <img src="images/img/bikezo11.png" class="img-fluid rounded mb-3" alt="Easy to Use" style="height: 150px; object-fit: cover;">
+                        <h3>Easy to Use</h3>
+                        <p>Unlock bikes in seconds with our mobile app</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 h-100">
+                        <img src="images/img/bikezo10.png" class="img-fluid rounded mb-3" alt="Eco Friendly" style="height: 150px; object-fit: cover;">
+                        <h3>Eco-Friendly</h3>
+                        <p>Reduce your carbon footprint with every ride</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 h-100">
+                        <img src="images/img/bikezo10.png" class="img-fluid rounded mb-3" alt="Affordable" style="height: 150px; object-fit: cover;">
+                        <h3>Affordable</h3>
+                        <p>Flexible plans for every budget</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Riders Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo3.png" class="card-img-top" alt="Happy Rider" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Sarah K.</h5>
+                            <p class="card-text">"Bikzo has transformed my daily commute. The bikes are comfortable and well-maintained."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo7.png" class="card-img-top" alt="Happy Rider" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">James L.</h5>
+                            <p class="card-text">"The electric bikes make hill climbs effortless. Perfect for Bristol's terrain!"</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo2.png" class="card-img-top" alt="Happy Rider" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Priya M.</h5>
+                            <p class="card-text">"I love the convenience of being able to pick up and drop off bikes anywhere."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="images/img/mockup1.svg" class="img-fluid rounded" alt="Join Bikzo Today" style="max-height: 300px;">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-4">Ready to Start Riding?</h2>
+                    <p class="lead mb-4">Join thousands of happy riders exploring Bristol on Bikzo bikes.</p>
+                    <a href="pricing.html" class="btn btn-light btn-lg me-2">Choose Your Plan</a>
+                    <a href="contact.html" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150" class="mb-3">
+                    <p>Bikzo is Bristol's premier bike-sharing service, committed to sustainable urban mobility.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white">Home</a></li>
+                        <li class="mb-2"><a href="station.html" class="text-white">Stations</a></li>
+                        <li class="mb-2"><a href="pricing.html" class="text-white">Pricing</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-white">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Frenchay Campus, Bristol BS16 1QY</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +44 (0)117 32 81000</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@bikzo.co.uk</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 Bikzo. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>UFCFHL-30-1 Graphic & Web Design Studio Project</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

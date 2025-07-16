@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikzo Stations | Find Bike Locations</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        :root {
+            --bikzo-blue: #0d6efd;
+            --bikzo-light: #f8f9fa;
+            --bikzo-dark: #212529;
+        }
+        
+        /* Hero Section */
+        .station-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/img/bikezo8.png');
+            background-size: cover;
+            background-position: center;
+            padding: 6rem 0;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        /* Map Section */
+        #map {
+            height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        #locationBtn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Station Cards */
+        .station-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .station-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .station-img {
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .station-card:hover .station-img {
+            transform: scale(1.05);
+        }
+        
+        /* Bike Showcase */
+        .bike-showcase .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .bike-showcase .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .bike-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        /* Features */
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--bikzo-blue);
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .station-hero {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="station.html">Stations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="station-hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Find Bikzo Stations</h1>
+            <p class="lead mb-4">Locate available bikes across Bristol</p>
+            <a href="#stations" class="btn btn-light btn-lg me-2">View Stations</a>
+            <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+        </div>
+    </header>
+
+    <!-- Map Section -->
+    <section class="py-5" id="stations">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="fw-bold mb-3">Interactive Station Map</h2>
+                    <p class="text-muted">Find the nearest bike station with real-time availability</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="position-relative">
+                        <div id="map"></div>
+                        <button id="locationBtn" class="btn btn-primary btn-sm">
+                            <i class="bi bi-geo-alt-fill me-1"></i> Use My Location
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="bi bi-pin-map me-2"></i> Nearby Stations</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush" id="stationList">
+                                <!-- Stations will be loaded here -->
+                                <div class="list-group-item text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-2 mb-0">Loading stations...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Stations -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Featured Stations</h2>
+                <p class="text-muted">Our most popular locations</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="station-card card h-100">
+                        <img src="images/img/bikezo11.png" class="station-img card-img-top" alt="City Centre Station">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">City Centre</h5>
+                                    <small class="text-muted">College Green, BS1 5TR</small>
+                                </div>
+                                <div>
+                                    <span class="badge bg-success">8 bikes</span>
+                                    <span class="badge bg-secondary ms-1">4 docks</span>
+                                </div>
+                            </div>
+                            <p class="mt-2 mb-0">Located in the heart of Bristol with 24/7 access</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="station-card card h-100">
+                        <img src="images/img/bikezo9.png" class="station-img card-img-top" alt="University Station">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">University West</h5>
+                                    <small class="text-muted">Coldharbour Ln, BS16 1QY</small>
+                                </div>
+                                <div>
+                                    <span class="badge bg-success">5 bikes</span>
+                                    <span class="badge bg-secondary ms-1">7 docks</span>
+                                </div>
+                            </div>
+                            <p class="mt-2 mb-0">Popular with students and staff members</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="station-card card h-100">
+                        <img src="images/img/bikezo11.png" class="station-img card-img-top" alt="Temple Meads Station">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">Temple Meads</h5>
+                                    <small class="text-muted">Temple Gate, BS1 6QF</small>
+                                </div>
+                                <div>
+                                    <span class="badge bg-success">3 bikes</span>
+                                    <span class="badge bg-secondary ms-1">15 docks</span>
+                                </div>
+                            </div>
+                            <p class="mt-2 mb-0">Perfect for commuters arriving by train</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bike Types Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Our Bike Fleet</h2>
+                <p class="text-muted">Choose from our range of premium bikes</p>
+            </div>
+            
+            <div class="row bike-showcase g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo2.png" class="bike-img card-img-top" alt="Classic Bike">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Classic City Bike</h5>
+                            <p class="card-text">Comfortable upright riding position perfect for urban commuting</p>
+                            <span class="badge bg-primary">Available at all stations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo2.png" class="bike-img card-img-top" alt="Electric Bike">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Electric Bike</h5>
+                            <p class="card-text">Pedal-assist technology for effortless riding up Bristol's hills</p>
+                            <span class="badge bg-primary">Available at 30+ stations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/img/bikezo10.png" class="bike-img card-img-top" alt="Folding Bike">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Folding Bike</h5>
+                            <p class="card-text">Compact design perfect for multi-modal commuting</p>
+                            <span class="badge bg-primary">Available at 15 stations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-5 bg-light" id="how-it-works">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How Bikzo Works</h2>
+                <p class="text-muted">Rent a bike in just a few easy steps</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3 text-center">
+                    <div class="feature-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h5>Find Station</h5>
+                    <p class="text-muted small">Use our map or app to locate the nearest station</p>
+                </div>
+                
+                <div class="col-md-3 text-center">
+                    <div class="feature-icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h5>Unlock Bike</h5>
+                    <p class="text-muted small">Scan the QR code with the Bikzo app</p>
+                </div>
+                
+                <div class="col-md-3 text-center">
+                    <div class="feature-icon">
+                        <i class="bi bi-bicycle"></i>
+                    </div>
+                    <h5>Enjoy Ride</h5>
+                    <p class="text-muted small">Helmets available at each station</p>
+                </div>
+                
+                <div class="col-md-3 text-center">
+                    <div class="feature-icon">
+                        <i class="bi bi-arrow-return-right"></i>
+                    </div>
+                    <h5>Return</h5>
+                    <p class="text-muted small">Drop at any Bikzo station when done</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="pricing.html" class="btn btn-primary btn-lg me-2">View Pricing</a>
+                <a href="contact.html" class="btn btn-outline-primary btn-lg">Get Help</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <img src="images/logo/logo-long.svg" alt="Bikzo Logo" width="150" class="mb-3">
+                    <p>Bristol's premier bike-sharing service committed to sustainable urban mobility.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white">Home</a></li>
+                        <li class="mb-2"><a href="station.html" class="text-white">Stations</a></li>
+                        <li class="mb-2"><a href="pricing.html" class="text-white">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Frenchay Campus, Bristol</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +44 (0)117 32 81000</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@bikzo.co.uk</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 Bikzo. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">UFCFHL-30-1 Graphic & Web Design Studio Project</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([51.4545, -2.5879], 14);
+        
+        // Add tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Sample station data
+        const stations = [
+            {
+                id: 1,
+                name: "City Centre",
+                location: [51.455, -2.592],
+                bikes: 8,
+                docks: 12,
+                address: "College Green, BS1 5TR",
+                image: "bikezo1.png"
+            },
+            {
+                id: 2,
+                name: "University West",
+                location: [51.458, -2.602],
+                bikes: 5,
+                docks: 7,
+                address: "Coldharbour Ln, BS16 1QY",
+                image: "bikezo5.png"
+            },
+            {
+                id: 3,
+                name: "Temple Meads",
+                location: [51.449, -2.581],
+                bikes: 3,
+                docks: 15,
+                address: "Temple Gate, BS1 6QF",
+                image: "bikezo9.png"
+            },
+            {
+                id: 4,
+                name: "Clifton Village",
+                location: [51.460, -2.612],
+                bikes: 10,
+                docks: 4,
+                address: "The Mall, Clifton, BS8 4DR",
+                image: "bikezo13.png"
+            }
+        ];
+        
+        // Custom bike icon
+        const bikeIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/2972/2972185.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+        
+        // Add markers with custom icons
+        stations.forEach(station => {
+            L.marker(station.location, {icon: bikeIcon})
+                .addTo(map)
+                .bindPopup(`
+                    <div class="station-popup">
+                        <h6 class="fw-bold">${station.name}</h6>
+                        <p class="small mb-2">${station.address}</p>
+                        <div class="d-flex gap-2 mb-2">
+                            <span class="badge bg-success">${station.bikes} bikes</span>
+                            <span class="badge bg-secondary">${station.docks} docks</span>
+                        </div>
+                        <img src="images/img/${station.image}" class="img-fluid rounded" alt="${station.name}">
+                    </div>
+                `);
+        });
+        
+        // Location button
+        document.getElementById('locationBtn').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const userLatLng = [position.coords.latitude, position.coords.longitude];
+                    map.setView(userLatLng, 16);
+                    
+                    // Add user location marker
+                    const userIcon = L.icon({
+                        iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
+                    });
+                    
+                    L.marker(userLatLng, {icon: userIcon})
+                        .addTo(map)
+                        .bindPopup("Your Location")
+                        .openPopup();
+                }, () => {
+                    alert("Unable to retrieve your location. Please ensure location services are enabled.");
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        });
+        
+        // Update station list
+        function updateStationList() {
+            const list = document.getElementById('stationList');
+            list.innerHTML = '';
+            
+            stations.forEach(station => {
+                const item = document.createElement('a');
+                item.href = '#';
+                item.className = 'list-group-item list-group-item-action';
+                item.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">${station.name}</h6>
+                            <small class="text-muted">${station.address}</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success">${station.bikes}</span>
+                            <span class="badge bg-secondary ms-1">${station.docks}</span>
+                        </div>
+                    </div>
+                `;
+                
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    map.setView(station.location, 16);
+                });
+                
+                list.appendChild(item);
+            });
+        }
+        
+        updateStationList();
+    </script>
+</body>
+</html>
